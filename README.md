@@ -66,3 +66,47 @@ sudo reboot
 sudo apt update
 sudo apt install htop lynx duf bridge-utils -y
 ```
+## Configure LVM
+### Extend the LVM volume group with additional disks:
+```
+{
+sudo vgextend ubuntu-vg /dev/sda
+sudo vgextend ubuntu-vg /dev/sdb
+}
+```
+### Extend the logical volume size:
+```
+{
+sudo lvextend -L +100G /dev/ubuntu-vg/ubuntu-lv
+}
+```
+### Resize the file system:
+```
+{
+sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
+}
+```
+## CloudStack Installation
+Silakan ikuti petunjuk yang diberikan dalam posting blog berikut:
+[Apache CloudStack on Ubuntu with x86_64 KVM](https://rohityadav.cloud/blog/cloudstack-kvm/)
+## Install ssh server and others tool if not yet present
+```
+{
+sudo apt-get install openntpd openssh-server sudo vim htop tar
+sudo apt-get install intel-microcode
+sudo passwd root
+```
+## Install ssh server and others tool if not yet present
+### Buka file /etc/ssh/sshd_config:
+```
+{
+sudo nano /etc/ssh/sshd_config
+}
+```
+### Temukan baris PermitRootLogin dan ubah nilainya menjadi yes.
+### Restart layanan SSH:
+```
+{
+sudo service ssh restart
+}
+```
