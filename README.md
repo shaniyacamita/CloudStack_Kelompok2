@@ -11,9 +11,7 @@ This guide provides step-by-step instructions to install CloudStack 4.17 on Ubun
 ## Network configuration with netplan
 ### Rename all existing configuration by adding .bak extension
 ```
-{
 cat /etc/netplan/01-netcfg.yaml
-}
 ```
 ### Edit isi konfigurasi netplan
 ```
