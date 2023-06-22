@@ -50,7 +50,7 @@ network:
       optional: true
   bridges:
     cloudbr0:
-      addresses: [192.168.10.100/24]
+      addresses: [192.168.10.22/24]
       routes:
        - to: default
          via: 192.168.10.1
