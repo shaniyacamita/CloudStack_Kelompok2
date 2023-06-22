@@ -2,10 +2,11 @@
 This guide provides step-by-step instructions to install CloudStack 4.17 on Ubuntu 22.04.
 
 ## Installation Cloud Stack 4.17 on Ubuntu 22.04 Kelompok 2
-#### Binar Qalbu Cimuema
-#### Mohammad Darrel Tristan Budiroso
-#### Raihan Jana Prasetya
-#### Shaniya Camita Farin
+- Binar Qalbu Cimuema
+- Mohammad Darrel Tristan Budiroso
+- Raihan Jana Prasetya
+- Shaniya Camita Farin
+  
 ### Home Network 192.168.10.0/24
 
 ## Install ssh server and others tool if not yet present
@@ -15,12 +16,12 @@ sudo apt-get install intel-microcode
 sudo passwd root
 ```
 ## Install ssh server and others tool if not yet present
-### Buka file /etc/ssh/sshd_config:
+### Open file /etc/ssh/sshd_config:
 ```
 sudo nano /etc/ssh/sshd_config
 ```
-### Temukan baris PermitRootLogin dan ubah nilainya menjadi yes.
-### Restart layanan SSH:
+### Find PermitRootLogin and change it into yes.
+### Restart SSH:
 ```
 sudo service ssh restart
 ```
@@ -30,11 +31,11 @@ sudo service ssh restart
 ```
 cat /etc/netplan/01-netcfg.yaml
 ```
-### Edit isi konfigurasi netplan
+### Edit netplan configuration
 ```
 sudo nano /etc/netplan/01-netcfg.yaml
 ```
-### Gantikan isi file dengan konfigurasi berikut:
+### Update the configuration :
 ```
 network:
   version: 2
@@ -63,13 +64,13 @@ network:
         stp: false
         forward-delay: 0
 ```
-### Terapkan perubahan konfigurasi jaringan:
+### Update changes of network configuration:
 ```
 sudo netplan generate
 sudo netplan apply
 sudo reboot
 ```
-## Update your system and install useful tools
+### Update your system and install useful tools
 ```
 sudo apt update
 sudo apt install htop lynx duf bridge-utils -y
@@ -105,12 +106,12 @@ apt-get update -y
 apt-get install cloudstack-management mysql-server
 ```
 
-#CloudStack usage and billing (optional)
+## CloudStack usage and billing (optional)
 ```
 apt-get install cloudstack-usage 
 ```
 
-#Configure database
+## Configure database
 ```
 nano /etc/mysql/mysql.conf.d/mysqld.cnf
 ```
@@ -128,12 +129,12 @@ binlog-format = 'ROW'
 systemctl restart mysql
 ```
 
-#deploy database as root and then create cloud user with password cloud too
+## Deploy database as root and then create cloud user with password cloud too
 ```
 cloudstack-setup-databases cloud:cloud@localhost --deploy-as=root:password -i 192.168.10.22
 ```
 
-#Storage Setup
+## Storage Setup
 ```
 apt-get install nfs-kernel-server quota
 ```
@@ -143,7 +144,7 @@ mkdir -p /export/primary /export/secondary
 exportfs -a
 ```
 
-#Configure NFS server
+## Configure NFS server
 ```
 sed -i -e 's/^RPCMOUNTDOPTS="--manage-gids"$/RPCMOUNTDOPTS="-p 892 --manage-gids"/g' /etc/default/nfs-kernel-server
 sed -i -e 's/^STATDOPTS=$/STATDOPTS="--port 662 --outgoing-port 2020"/g' /etc/default/nfs-common
@@ -153,7 +154,7 @@ service nfs-kernel-server restart
 ```
 
 ## Setup KVM
-#Setup KVM host and cloudstack agent
+### Setup KVM host and cloudstack agent
 ```
 apt-get install qemu-kvm cloudstack-agent
 ```
@@ -164,10 +165,10 @@ sed -i -e 's/\#vnc_listen.*$/vnc_listen = "0.0.0.0"/g' /etc/libvirt/qemu.conf
 nano /etc/default/libvirtd
 ```
 
-#On Ubuntu 22.04, add LIBVIRTD_ARGS="--listen" to /etc/default/libvirtd instead.
-#uncomment LIBVIRTD_ARGS="--listen"
+### On Ubuntu 22.04, add LIBVIRTD_ARGS="--listen" to /etc/default/libvirtd instead.
+### Uncomment LIBVIRTD_ARGS="--listen"
 
-#Configure default libvirtd config:
+### Configure default libvirtd config:
 ```
 echo 'listen_tls=0' >> /etc/libvirt/libvirtd.conf
 echo 'listen_tcp=1' >> /etc/libvirt/libvirtd.conf
@@ -180,7 +181,7 @@ systemctl mask libvirtd.socket libvirtd-ro.socket libvirtd-admin.socket libvirtd
 systemctl restart libvirtd
 ```
 
-#On certain hosts where you may be running docker and other services, you may need to add the following in /etc/sysctl.conf and then run sysctl -p:
+### On certain hosts where you may be running docker and other services, you may need to add the following in /etc/sysctl.conf and then run sysctl -p:
 ```
 nano /etc/sysctl.conf
 ```
@@ -190,7 +191,7 @@ net.bridge.bridge-nf-call-iptables = 0
 sysctl -p
 ```
 
-#generate host id
+## Generate host id
 ```
 apt-get install uuid
 UUID=$(uuid)
@@ -198,8 +199,8 @@ echo host_uuid = \"$UUID\" >> /etc/libvirt/libvirtd.conf
 systemctl restart libvirtd
 ```
 
-#configure firewall (OPTIONAL)
-# configure iptables
+## Configure firewall (OPTIONAL)
+### Configure iptables
 ```
 NETWORK=192.168.1.0/24
 iptables -A INPUT -s $NETWORK -m state --state NEW -p udp --dport 111 -j ACCEPT
@@ -220,9 +221,10 @@ iptables -A INPUT -s $NETWORK -m state --state NEW -p tcp --dport 16514 -j ACCEP
 ```
 apt-get install iptables-persistent
 ```
-#yes yes
+### yes 
+yes
 
-# Disable apparmour on libvirtd
+## Disable apparmour on libvirtd
 ```
 ln -s /etc/apparmor.d/usr.sbin.libvirtd /etc/apparmor.d/disable/
 ln -s /etc/apparmor.d/usr.lib.libvirt.virt-aa-helper /etc/apparmor.d/disable/
@@ -230,8 +232,8 @@ apparmor_parser -R /etc/apparmor.d/usr.sbin.libvirtd
 apparmor_parser -R /etc/apparmor.d/usr.lib.libvirt.virt-aa-helper
 ```
 
-#Launch Management Server
-#Start your cloud:
+## Launch Management Server
+### Start your cloud:
 ```
 cloudstack-setup-management
 ```
@@ -242,17 +244,17 @@ systemctl status cloudstack-management
 tail -f /var/log/cloudstack/management/management-server.log
 ```
 
-#After management server is UP, proceed to http://192.168.10.22(i.e. the cloudbr0-IP):8080/client and log in using the default credentials - username admin and password password.
+### After management server is UP, proceed to http://192.168.10.22(i.e. the cloudbr0-IP):8080/client and log in using the default credentials - username admin and password password.
 
-#Enable XRDP
-#https://www.digitalocean.com/community/tutorials/how-to-enable-remote-desktop-protocol-using-xrdp-on-ubuntu-22-04
+## Enable XRDP
+https://www.digitalocean.com/community/tutorials/how-to-enable-remote-desktop-protocol-using-xrdp-on-ubuntu-22-04
 ```
 apt update
 apt install xfce4 xfce4-goodies -y
 apt install xrdp -y
 ```
-#configure to allow tcp ipv4 listen to 3389. It's a bug only listen to tcp6
-#port=tcp://:3389
+## Configure to allow tcp ipv4 listen to 3389. It's a bug only listen to tcp6
+### Port=tcp://:3389
 ```
 nano /etc/xrdp/xrdp.ini
 ```
