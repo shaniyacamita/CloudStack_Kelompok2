@@ -5,10 +5,10 @@ This guide provides step-by-step instructions to install CloudStack 4.17 on Ubun
 
 
 ## Installation Cloud Stack 4.17 on Ubuntu 22.04 Kelompok 2
-- Binar Qalbu Cimuema
-- Mohammad Darrel Tristan Budiroso
-- Raihan Jana Prasetya
-- Shaniya Camita Farin
+- Binar Qalbu Cimuema | 2006526296
+- Mohammad Darrel Tristan Budiroso | 2006577302
+- Raihan Jana Prasetya | 2006527651
+- Shaniya Camita Farin | 2006534865
   
 ### Home Network 192.168.10.0/24
 
