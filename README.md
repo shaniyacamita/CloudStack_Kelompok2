@@ -1,6 +1,6 @@
 # CloudStack_Kelompok2
 This guide provides step-by-step instructions to install CloudStack 4.17 on Ubuntu 22.04.
-## Apache CloudStack 4.17 installation on Ubuntu 22.04: https://youtu.be/Ua774I1ZiNg
+## Apache CloudStack 4.18 installation on Ubuntu 22.04: https://youtu.be/Ua774I1ZiNg
 ## Creating Instance: https://youtu.be/ZuKOUTOAiVo
 
 
@@ -102,7 +102,7 @@ mkdir -p /etc/apt/keyrings
 wget -O- http://packages.shapeblue.com/release.asc | gpg --dearmor | sudo tee /etc/apt/keyrings/cloudstack.gpg > /dev/null
 ```
 ```
-echo deb [signed-by=/etc/apt/keyrings/cloudstack.gpg] http://packages.shapeblue.com/cloudstack/upstream/debian/4.17 / > /etc/apt/sources.list.d/cloudstack.list
+echo deb [signed-by=/etc/apt/keyrings/cloudstack.gpg] http://packages.shapeblue.com/cloudstack/upstream/debian/4.18 / > /etc/apt/sources.list.d/cloudstack.list
 ```
 ```
 apt-get update -y
