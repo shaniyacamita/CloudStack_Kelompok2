@@ -191,6 +191,8 @@ nano /etc/sysctl.conf
 ```
 net.bridge.bridge-nf-call-arptables = 0
 net.bridge.bridge-nf-call-iptables = 0
+```
+```
 sysctl -p
 ```
 
@@ -205,7 +207,7 @@ systemctl restart libvirtd
 ## Configure firewall (OPTIONAL)
 ### Configure iptables
 ```
-NETWORK=192.168.1.0/24
+NETWORK=192.168.10.0/24
 iptables -A INPUT -s $NETWORK -m state --state NEW -p udp --dport 111 -j ACCEPT
 iptables -A INPUT -s $NETWORK -m state --state NEW -p tcp --dport 111 -j ACCEPT
 iptables -A INPUT -s $NETWORK -m state --state NEW -p tcp --dport 2049 -j ACCEPT
@@ -218,8 +220,6 @@ iptables -A INPUT -s $NETWORK -m state --state NEW -p tcp --dport 8250 -j ACCEPT
 iptables -A INPUT -s $NETWORK -m state --state NEW -p tcp --dport 8080 -j ACCEPT
 iptables -A INPUT -s $NETWORK -m state --state NEW -p tcp --dport 9090 -j ACCEPT
 iptables -A INPUT -s $NETWORK -m state --state NEW -p tcp --dport 16514 -j ACCEPT
-#iptables -A INPUT -s $NETWORK -m state --state NEW -p udp --dport 3128 -j ACCEPT
-#iptables -A INPUT -s $NETWORK -m state --state NEW -p tcp --dport 3128 -j ACCEPT
 ```
 ```
 apt-get install iptables-persistent
